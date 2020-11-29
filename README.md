@@ -2,6 +2,8 @@
 
 **Link**: https://paolobaigueraunitn.github.io/
 
+**SAFARI ISSUE**: For Safari Users go to Preferenze -> Riproduzione Automatica -> rettare il valore associato questo sito a “Sempre”
+
 **What’s on the screen**: 
 
 - Several fishes happily swimming within it. 
