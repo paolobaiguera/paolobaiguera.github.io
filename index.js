@@ -94,7 +94,9 @@ var sketch = function (p) {
         p.textSize(42);
         p.text("Zen Not Zen", p.width/2 -42*10/2, p.height/10);
         p.textSize(30);
-        p.text("Move the sliders or click to create more Fishes and Ripples\n", p.width/2 -24*30/2, p.height/10+50);
+        p.text("Move the sliders or click around \n", p.width/2 -20*30/2, p.height/10+50);
+        p.text("to create more Fishes and Ripples \n", p.width/2 -20*30/2, p.height/10+85);
+
         //Paint ripples shadows
         for(let j=0; j < ripples.length; j++){
           ripples[j].paintShadows();
@@ -109,10 +111,8 @@ var sketch = function (p) {
             fish.keepClose();
             //Update fish coordinates
             fish.update();
-
             //Paint it with is color (when playing tale is white)
             fish.paint(fish.col);
-
         }
         for(let j=0; j < ripples.length; j++){
           //Evaluate if there are any fishes in the ripple area.
@@ -326,7 +326,6 @@ var sketch = function (p) {
             this.force.y += forceFactor * this.forceDir.y;
         }
     };
-
 
     /*
      * The Fish class
