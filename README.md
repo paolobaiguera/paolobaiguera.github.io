@@ -2,7 +2,11 @@
 
 **Link**: https://paolobaigueraunitn.github.io/
 
-**SAFARI ISSUE**: For Safari Users go to Preferenze -> Riproduzione Automatica -> rettare il valore associato questo sito a “Sempre”
+(Better with Headphones!!!)
+
+**CHROME**: It was developed for Chrome and should work at his best on this browser.
+
+**SAFARI ISSUE**: For Safari Users go to Preferenze -> Riproduzione Automatica -> rettare il valore associato questo sito a “Sempre”. It could also not work on some versions older than 14.0.
 
 **What’s on the screen**: 
 
