@@ -1,0 +1,14 @@
+html, body {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+
+#cont{
+  width: 100%;
+  height: 20%;
+  background-color: #69B3CD;
+}
