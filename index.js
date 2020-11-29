@@ -2,28 +2,28 @@ var sketchContainer = "sketch";
 var colorArr = ["#F50D03", "#A40000"];
 var playColor = "#FCF1DC"
 /*var notesArr = [
-  [ 'C#5', 'A3', 'A4', 'C#3', 'C#4', 'E6', 'E4', 'C#4', 'E3', 'E4', 'E6', 'C#2'],
-  ['C#4', 'E4', 'G#4', 'C#3', 'C#5', 'E6', 'E4', 'C#4', 'E3', 'E4', 'E6', 'G#5'],
-  ['E4', 'G#4', 'G#5', 'G#3', 'B3', 'B4', 'E4', 'B3', 'E3', 'G#3', 'E6', 'G#5'],
-  ['G#4', 'G#5', 'G#3', 'B3', 'B4', 'D#4', 'B3', 'D#3', 'G#3', 'D#6', 'G#5']
+  [ 'C#5', 'A3', 'A4', 'C#3', 'C#4', 'E6', 'E4', 'C#4', 'E3', 'E4', 'C#2'],
+  ['C#4', 'E4', 'G#4', 'C#3', 'C#4', 'E6', 'E4', 'C#4', 'E3', 'E4', 'G#4'],
+  ['E4', 'G#4', 'G#4', 'G#3', 'B3', 'B4', 'E4', 'B3', 'E3', 'G#3', 'E5', 'G#4'],
+  ['G#4', 'G#2', 'G#3', 'B3', 'B4', 'D#4', 'B3', 'D#3', 'G#3', 'D#4', 'G#4']
 ]*/
+
 //Penta
 var notesArr = [
   ['C3', 'D3', 'E3', 'G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4', 'C5', 'D5', 'E5', 'G5', 'A5'],
-  ['G3', 'A3', 'B3', 'D3', 'E3', 'G4', 'A4', 'B4', 'D4', 'E4', 'G3', 'A5', 'B5', 'D5', 'E5']
+  ['F3', 'G3', 'A3', 'C3', 'D3', 'F4', 'G4', 'A4', 'C4', 'D4', 'F5', 'G5', 'A5', 'C5', 'D5']
 ]
-
 var a = 0;
 var notes = notesArr[a];
 var nFishes = 10;
 var nRipples = 1;
 var slider;
 var canvas;
+var ripples = [];
 
 var sketch = function (p) {
     // Global variables
     var fishes = [];
-    var ripples = [];
     var repulsionDist = 120;
     var alignDist = 200;
     //Used for fish creation
@@ -81,7 +81,7 @@ var sketch = function (p) {
           createfishes(sliderNum.value());
         }
         //Set background to 105,179,205 => FCF1DC
-        p.background(105,179,205, 40);
+        p.background("#69B3CD");
         //Stroke measure for title and sliders
         p.strokeWeight(0.8);
         p.stroke("#FCF1DC");
@@ -91,7 +91,7 @@ var sketch = function (p) {
         p.textSize(42);
         p.text("Zen Not Zen", p.width/2 -42*10/2, p.height/10);
         p.textSize(30);
-        p.text("Move the sliders to add more Ripples and Fishes", p.width/2 -24*30/2, p.height/10+50);
+        p.text("Move the sliders to add more Ripples and Fishes\nClick to create new ripples that will last for 1 second", p.width/2 -24*30/2, p.height/10+50);
         //Paint ripples shadows
         for(let j=0; j < ripples.length; j++){
           ripples[j].paintShadows();
@@ -132,7 +132,7 @@ var sketch = function (p) {
         p.fullscreen(true);
       }
       p.getAudioContext().resume();
-      checkAndPlay();
+      //checkAndPlay();
     }
 
     //MouseDragged listener => Make fishes disappear, resume AudioContext;
@@ -141,8 +141,15 @@ var sketch = function (p) {
         fullscreen(true);
       }
       p.getAudioContext().resume();
-      e.preventDefault();
-      checkAndPlay();
+      //e.preventDefault();
+      //checkAndPlay();
+      let ripple = new Ripple(p.mouseX, p.mouseY);
+      console.log('ripples ' + ripples.length);
+      ripples.push(ripple);
+      setTimeout(() => {
+        ripples.filter((item) => {return ((item.x !== ripple.x) && (item.y !== ripple.y))})
+      },100)
+      console.log('ripples ' + ripples.length);
     }
 
     //If on fish, make it move and play a note
@@ -568,6 +575,7 @@ var sketch = function (p) {
     * Ripple Class
     */
     function Ripple(x,y){
+      console.log('Creating Ripple ' + x + '  ' + y);
       this.x = x;
       this.y = y;
       this.i = 0;
@@ -580,14 +588,12 @@ var sketch = function (p) {
     Ripple.prototype.paintShadows = function(){
       if(this.dir){
         this.i = (this.i + this.step)%this.period;
-        console.log(this.i);
         if(this.i >= this.period-1){
           this.dir = false;
         }
       }
       else{
         this.i = (this.i - this.step);
-        console.log(this.i);
         if(this.i <= 0){
           this.dir = true;
         }
@@ -608,7 +614,7 @@ var sketch = function (p) {
     //paint the Ripple
     Ripple.prototype.paint = function(){
       //FCF1DC
-      p.stroke(252,241,220, 90);
+      p.stroke(252,241,220, 99);
       p.noFill();
       p.strokeWeight(0.8);
       p.circle(this.x, this.y, this.i*(this.max*6/8));
@@ -623,7 +629,6 @@ var sketch = function (p) {
     //Evaluate if fishes are in the area
     Ripple.prototype.evaluate = function(){
       let distX, distY;
-      console.log('Current Amplitude ' + this.i*this.max/2)
       for(let j=0; j < fishes.length; j++){
         distX = Math.abs((Math.abs(fishes[j].posBody.x) - Math.abs(this.x)));
         distY = Math.abs((Math.abs(fishes[j].posBody.y) - Math.abs(this.y)));

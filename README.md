@@ -18,13 +18,15 @@
 
 **Interactions**:
 
-- Mouse Click/Drag: If a fish is within the movement space, it moves away and reproduce a sound (a note assigned to it)
+- Mouse Click: Create a new Ripple that lasts for only 1 second. In this way the user can choose which fish will play or simply add more momentary ripples.
 
-- Sliders: Moving the sliders add or remove respectively Fishes and Ripples.
+- Mouse Drag: If a fish is within the dragging space it will disappear and re-render far from the mouse position.
 
-- Automated: Whenever a fish is within any Ripple’s area it plays the note and change his tail color. 
+- Sliders: Moving the sliders add or remove respectively Fishes and Ripples which last as long as the user likes
 
-- Automated: Every 2 seconds the notes playing changes (according to 4 basics chord A, C#m, E, G#m)
+- Automated: Whenever a fish is within any Ripple’s area it plays the note and change his tail’s color. 
+
+- Automated: Every 2 seconds the notes playing changes (either the C or the F pentatonic scale)
 
 **Results**:
 
