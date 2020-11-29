@@ -1,7 +1,8 @@
 # Zen Not Zen - These koi fishes really sounds good. 
 
 **Abstract**:
-Zen not Zen simulate a Koi pond with the addition of assigning to each fish a particular sound and allowing them to play it whenever they’re near a ripple. In this way the project creates a SoundScape (based on two majors pentatonic scale) ever-changing and evolving both in a random and triggered fashion since the user can decide how many fishes will be swimming in the lake and how many ripples said lake will have. Also, as a twist, by dragging the mouse the user will be able to move around the fishes and by clicking it he/she will add a ripple which will disappear within 5 seconds.
+Zen not Zen simulates a Koi pond with the addition of assigning to each fish a particular sound and allowing them to play it whenever they’re near a ripple. 
+In this way it creates a SoundScape (based on two pentatonic scale), which is ever-changing and evolving both in a random and triggered fashion. The user can in fact decide how many fishes will be swimming in the lake and how many ripples said lake will have. Also, as a twist, by dragging the mouse around he/she will be able to make the fishes move away and by clicking on the screen the user will add other ripples which will disappear within 5 seconds.
 
 **Link**: https://paolobaigueraunitn.github.io/
 
