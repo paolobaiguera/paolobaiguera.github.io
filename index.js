@@ -1,12 +1,18 @@
 var sketchContainer = "sketch";
 var colorArr = ["#F50D03", "#A40000"];
 var playColor = "#FCF1DC"
-var notesArr = [
+/*var notesArr = [
   [ 'C#5', 'A3', 'A4', 'C#3', 'C#4', 'E6', 'E4', 'C#4', 'E3', 'E4', 'E6', 'C#2'],
   ['C#4', 'E4', 'G#4', 'C#3', 'C#5', 'E6', 'E4', 'C#4', 'E3', 'E4', 'E6', 'G#5'],
   ['E4', 'G#4', 'G#5', 'G#3', 'B3', 'B4', 'E4', 'B3', 'E3', 'G#3', 'E6', 'G#5'],
   ['G#4', 'G#5', 'G#3', 'B3', 'B4', 'D#4', 'B3', 'D#3', 'G#3', 'D#6', 'G#5']
+]*/
+//Penta
+var notesArr = [
+  ['C3', 'D3', 'E3', 'G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4', 'C5', 'D5', 'E5', 'G5', 'A5'],
+  ['G3', 'A3', 'B3', 'D3', 'E3', 'G4', 'A4', 'B4', 'D4', 'E4', 'G3', 'A5', 'B5', 'D5', 'E5']
 ]
+
 var a = 0;
 var notes = notesArr[a];
 var nFishes = 10;
@@ -219,7 +225,7 @@ var sketch = function (p) {
                 ang = p.TWO_PI * Math.random();
                 vel = p.createVector(Math.cos(ang)*maxVel/35, Math.sin(ang));
                 col = p.random(colorArr);
-                headSize =  15;
+                headSize =  20;
                 //Add Synth
                 let synth = new p5.MonoSynth();
                 let note = p.random(notes);
