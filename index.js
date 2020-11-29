@@ -134,7 +134,9 @@ var sketch = function (p) {
         p.fullscreen(true);
       }
       p.getAudioContext().resume();
-      checkAndPlay();
+      if(Math.abs(e.movementX) > 3 && Math.abs(e.movementY) > 3){
+        checkAndPlay();
+      }
     }
 
     //MouseDragged listener => Make fishes disappear, resume AudioContext;

@@ -48,3 +48,6 @@ I did not use this code directly, but I did learned a 	lot from these projects.
 	https://p5js.org/examples/simulate-flocking.html
 	
 	https://jsfiddle.net/jagracar/2ctqfwwo/
+
+**To Do**:
+	Add falling sticks for very low notes
