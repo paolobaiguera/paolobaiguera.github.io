@@ -16,14 +16,16 @@ var notesArr = [
 var a = 0;
 var notes = notesArr[a];
 var nFishes = 10;
-var nRipples = 1;
+var nRipples = 0;
 var slider;
 var canvas;
-var ripples = [];
+var ret;
 
 var sketch = function (p) {
     // Global variables
     var fishes = [];
+    var ripples = [];
+    var ripplesbyHand = [];
     var repulsionDist = 120;
     var alignDist = 200;
     //Used for fish creation
@@ -42,11 +44,11 @@ var sketch = function (p) {
         limit = p.windowWidth;
         alignDistSq = p.sq(alignDist);
         //Num Fishses Slider
-        sliderNum = p.createSlider(0, 100, 5, 1);
+        sliderNum = p.createSlider(0, 100, 10, 1);
         sliderNum.position(30, 30);
         sliderNum.style('background', playColor);
         //Num Ripples slider
-        sliderSpr = p.createSlider(0, 15, 1, 1);
+        sliderSpr = p.createSlider(0, 15, 0, 1);
         sliderSpr.position(30, 60);
         sliderSpr.style('background', playColor);
         radio = p.createRadio();
@@ -81,17 +83,18 @@ var sketch = function (p) {
           createfishes(sliderNum.value());
         }
         //Set background to 105,179,205 => FCF1DC
+        p.stroke("#FCF1DC");
+        p.noFill();
         p.background("#69B3CD");
         //Stroke measure for title and sliders
         p.strokeWeight(0.8);
-        p.stroke("#FCF1DC");
         p.textSize(25);
         p.text("Fishes: " + sliderNum.value(), sliderNum.x + sliderNum.width + 10, sliderNum.y + sliderNum.height);
         p.text("Ripples: " + sliderSpr.value(), sliderSpr.x + sliderSpr.width + 10, sliderSpr.y + sliderSpr.height);
         p.textSize(42);
         p.text("Zen Not Zen", p.width/2 -42*10/2, p.height/10);
         p.textSize(30);
-        p.text("Move the sliders to add more Ripples and Fishes\nClick to create new ripples that will last for 1 second", p.width/2 -24*30/2, p.height/10+50);
+        p.text("Move the sliders or click to create more Fishes and Ripples\n", p.width/2 -24*30/2, p.height/10+50);
         //Paint ripples shadows
         for(let j=0; j < ripples.length; j++){
           ripples[j].paintShadows();
@@ -100,7 +103,6 @@ var sketch = function (p) {
         var fish;
         for (let i = 0; i < fishes.length; i++) {
             fish = fishes[i];
-
             // Evaluate collisions with other fishes
             fish.evaluate(fishes);
             //Do not let go too much of those beautiful fishes
@@ -132,26 +134,26 @@ var sketch = function (p) {
         p.fullscreen(true);
       }
       p.getAudioContext().resume();
-      //checkAndPlay();
+      checkAndPlay();
     }
 
     //MouseDragged listener => Make fishes disappear, resume AudioContext;
     p.mouseClicked = function (e){
       if(!p.fullscreen()){
-        fullscreen(true);
+        p.fullscreen(true);
       }
       p.getAudioContext().resume();
       //e.preventDefault();
       //checkAndPlay();
       let ripple = new Ripple(p.mouseX, p.mouseY);
-      console.log('ripples ' + ripples.length);
       ripples.push(ripple);
-      setTimeout(() => {
-        ripples.filter((item) => {return ((item.x !== ripple.x) && (item.y !== ripple.y))})
-      },100)
-      console.log('ripples ' + ripples.length);
-    }
+      ripplesbyHand.push(ripple);
+      ret = setTimeout(() => {
+        ripples = ripples.filter((item) => item !== ripplesbyHand[0]);
+        ripplesbyHand.shift();
+      }, 5000);
 
+    }
     //If on fish, make it move and play a note
     function checkAndPlay(){
       let distX, distY;
@@ -159,30 +161,6 @@ var sketch = function (p) {
         distX = Math.abs(Math.abs(fishes[i].posBody.x) - Math.abs(p.mouseX));
         distY = Math.abs(Math.abs(fishes[i].posBody.y) - Math.abs(p.mouseY));
         if(fishes[i].pos.x >=0 && p.mouseX >= 0 && fishes[i].pos.y >=0 && p.mouseY >=0){
-          if(
-            (distX < 100) &&
-            (distY < 100)
-            ){
-              fishes[i].play(true);
-          }
-        }
-        if(fishes[i].pos.x >=0 && p.mouseX >= 0 && fishes[i].pos.y <=0 && p.mouseY <=0){
-          if(
-            (distX < 100) &&
-            (distY < 100)
-            ){
-              fishes[i].play(true);
-          }
-        }
-        if(fishes[i].pos.x <= 0 && p.mouseX <=  0 && fishes[i].pos.y >=0 && p.mouseY >=0){
-          if(
-            (distX < 100) &&
-            (distY < 100)
-            ){
-              fishes[i].play(true);
-          }
-        }
-        if(fishes[i].pos.x <=0 && p.mouseX <= 0 && fishes[i].pos.y <=0 && p.mouseY <=0)            {
           if(
             (distX < 100) &&
             (distY < 100)
