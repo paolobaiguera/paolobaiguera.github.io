@@ -101,6 +101,9 @@ var sketch = function (p) {
         for(let j=0; j < ripples.length; j++){
           ripples[j].paintShadows();
         }
+        for(let j=0; j < ripplesbyHand.length; j++){
+          ripplesbyHand[j].paintShadows();
+        }
         //paint fishes
         var fish;
         for (let i = 0; i < fishes.length; i++) {
@@ -119,6 +122,12 @@ var sketch = function (p) {
           ripples[j].evaluate();
           //paint the ripple
           ripples[j].paint();
+        }
+        for(let j=0; j < ripplesbyHand.length; j++){
+          //Evaluate if there are any fishes in the ripple area.
+          ripplesbyHand[j].evaluate();
+          //paint the ripple
+          ripplesbyHand[j].paint();
         }
     };
 
@@ -148,10 +157,8 @@ var sketch = function (p) {
       //e.preventDefault();
       //checkAndPlay();
       let ripple = new Ripple(p.mouseX, p.mouseY);
-      ripples.push(ripple);
       ripplesbyHand.push(ripple);
       ret = setTimeout(() => {
-        ripples = ripples.filter((item) => item !== ripplesbyHand[0]);
         ripplesbyHand.shift();
       }, 5000);
 
@@ -554,7 +561,6 @@ var sketch = function (p) {
     * Ripple Class
     */
     function Ripple(x,y){
-      console.log('Creating Ripple ' + x + '  ' + y);
       this.x = x;
       this.y = y;
       this.i = 0;
